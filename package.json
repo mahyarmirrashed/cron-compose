@@ -1,0 +1,20 @@
+{
+  "name": "cron-compose",
+  "version": "0.0.0",
+  "description": "Easily craft precise cron expressions using a declarative syntax.",
+  "license": "MIT",
+  "author": {
+    "name": "Mahyar Mirrashed",
+    "email": "mahyarmirrashed@users.noreply.github.com"
+  },
+  "main": "index.js",
+  "scripts": {},
+  "engines": {
+    "node": ">=16"
+  },
+  "keywords": [
+    "cron",
+    "compose",
+    "builder"
+  ]
+}
