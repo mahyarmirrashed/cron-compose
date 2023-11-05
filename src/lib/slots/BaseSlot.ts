@@ -13,30 +13,46 @@ abstract class BaseSlot implements IBaseSlot {
   private selectedValues: boolean[];
 
   constructor(private maximumValue: number) {
-    this.selectedValues = new Array(maximumValue).fill(true);
+    this.selectedValues = new Array(maximumValue).fill(false);
   }
 
-  addSingle(_value: number) {
+  addSingle(value: number) {
+    this.selectedValues[value] = true;
     return this;
   }
 
-  addRange(_start: number, _end: number) {
+  addRange(start: number, end: number) {
+    this.selectedValues.fill(true, start, end);
     return this;
   }
 
-  addStep(_step: number, _start?: number) {
+  addStep(step: number, start = 0): this {
+    if (step <= 0) throw new Error("Step must be greater than 0.");
+
+    Array.from(
+      { length: Math.ceil((this.maximumValue - start) / step) },
+      (_, i) => start + i * step,
+    ).forEach((index) => (this.selectedValues[index] = true));
     return this;
   }
 
-  removeSingle(_value: number) {
+  removeSingle(value: number) {
+    this.selectedValues[value] = false;
     return this;
   }
 
-  removeRange(_start: number, _end: number) {
+  removeRange(start: number, end: number) {
+    this.selectedValues.fill(false, start, end);
     return this;
   }
 
-  removeStep(_step: number, _start?: number) {
+  removeStep(step: number, start = 0) {
+    if (step <= 0) throw new Error("Step must be greater than 0.");
+
+    Array.from(
+      { length: Math.ceil((this.maximumValue - start) / step) },
+      (_, i) => start + i * step,
+    ).forEach((index) => (this.selectedValues[index] = false));
     return this;
   }
 
