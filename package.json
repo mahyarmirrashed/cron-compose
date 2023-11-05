@@ -1,6 +1,6 @@
 {
   "name": "cron-compose",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Easily craft precise cron expressions using a declarative syntax.",
   "license": "MIT",
   "author": {
