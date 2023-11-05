@@ -11,7 +11,7 @@ abstract class OffsetBaseSlot extends BaseSlot {
   }
 
   override addRange(start: number, end: number) {
-    this.checkNotZero(start, end);
+    this.checkNotZero(start);
     return super.addRange(start, end);
   }
 
@@ -26,7 +26,7 @@ abstract class OffsetBaseSlot extends BaseSlot {
   }
 
   override removeRange(start: number, end: number) {
-    this.checkNotZero(start, end);
+    this.checkNotZero(start);
     return super.removeRange(start, end);
   }
 
