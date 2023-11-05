@@ -1,8 +1,5 @@
 {
   "compilerOptions": {
-    /* Projects */
-    "incremental": true,
-
     /* Language and Environment */
     "target": "es2016",
 
