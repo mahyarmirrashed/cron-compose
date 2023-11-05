@@ -8,7 +8,9 @@
     "email": "mahyarmirrashed@users.noreply.github.com"
   },
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "test": "jest"
+  },
   "engines": {
     "node": ">=16"
   },
