@@ -31,7 +31,7 @@ abstract class BaseSlot implements IBaseSlot {
     return this;
   }
 
-  addStep(step: number, start = 0): this {
+  addStep(step: number, start = 0) {
     this.checkBounds(start);
     if (step <= 0) throw new Error("Step must be greater than 0.");
 
