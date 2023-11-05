@@ -9,6 +9,7 @@
   },
   "main": "index.js",
   "scripts": {
+    "format": "npx prettier --write scripts/ src/",
     "test": "jest"
   },
   "engines": {
