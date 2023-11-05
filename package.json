@@ -7,7 +7,8 @@
     "name": "Mahyar Mirrashed",
     "email": "mahyarmirrashed@users.noreply.github.com"
   },
-  "main": "index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "build:clean": "rm -rf dist",
     "build:main": "tsc -p tsconfig.json",
