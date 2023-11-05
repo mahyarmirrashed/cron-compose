@@ -3,6 +3,11 @@ import { CronComposer, SlotType } from "./CronComposer";
 describe("CronComposer", () => {
   let cronComposer: CronComposer;
 
+  function prependWithStar(slotValues: string, withSeconds = true) {
+    if (withSeconds) return `* ${slotValues}`;
+    else return slotValues;
+  }
+
   beforeEach(() => {
     cronComposer = new CronComposer();
   });
@@ -50,5 +55,40 @@ describe("CronComposer", () => {
     cronComposer.addSingle(SlotType.DayOfWeek, 1);
     expect(cronComposer.toString()).toBe("* * * * 1");
     expect(cronComposer.enableSeconds().toString()).toBe("* * * * * 1");
+  });
+
+  [true, false].forEach((withSeconds) => {
+    test("should perform complex slot operations correctly", () => {
+      if (withSeconds) cronComposer.enableSeconds();
+
+      cronComposer.addSingle(SlotType.Minute, 1);
+      expect(cronComposer.toString()).toBe(
+        prependWithStar("1 * * * *", withSeconds),
+      );
+      cronComposer.addRange(SlotType.Minute, 1, 30);
+      expect(cronComposer.toString()).toBe(
+        prependWithStar("1-29 * * * *", withSeconds),
+      );
+      cronComposer.addStep(SlotType.Minute, 10, 10);
+      expect(cronComposer.toString()).toBe(
+        prependWithStar("1-30,40,50 * * * *", withSeconds),
+      );
+      cronComposer.removeSingle(SlotType.Minute, 1);
+      expect(cronComposer.toString()).toBe(
+        prependWithStar("2-30,40,50 * * * *", withSeconds),
+      );
+      cronComposer.removeRange(SlotType.Minute, 1, 10);
+      expect(cronComposer.toString()).toBe(
+        prependWithStar("10-30,40,50 * * * *", withSeconds),
+      );
+      cronComposer.removeStep(SlotType.Minute, 10, 10);
+      expect(cronComposer.toString()).toBe(
+        prependWithStar("11-19,21-29 * * * *", withSeconds),
+      );
+      cronComposer.clear(SlotType.Minute);
+      expect(cronComposer.toString()).toBe(
+        prependWithStar("* * * * *", withSeconds),
+      );
+    });
   });
 });
