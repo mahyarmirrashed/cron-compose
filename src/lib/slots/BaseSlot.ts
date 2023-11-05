@@ -106,3 +106,5 @@ abstract class BaseSlot implements IBaseSlot {
     });
   }
 }
+
+export default BaseSlot;
