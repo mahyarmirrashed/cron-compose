@@ -83,4 +83,16 @@ export class CronComposer {
     this.slots.get(slot)?.clear();
     return this;
   }
+
+  toString() {
+    const parts = [
+      this.slots.get(SlotType.Minute)?.toString(),
+      this.slots.get(SlotType.Hour)?.toString(),
+      this.slots.get(SlotType.Day)?.toString(),
+      this.slots.get(SlotType.Month)?.toString(),
+      this.slots.get(SlotType.DayOfWeek)?.toString(),
+    ];
+
+    return parts.join(" ");
+  }
 }
