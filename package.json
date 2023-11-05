@@ -10,9 +10,9 @@
   "main": "index.js",
   "scripts": {
     "build:main": "tsc -p tsconfig.json",
-    "format": "npx prettier --write scripts/ src/",
     "test": "jest"
     "dev": "nodemon --watch src --exec ts-node src/index.ts",
+    "fix:prettier": "npx prettier --write scripts/ src/",
   },
   "engines": {
     "node": ">=16"
