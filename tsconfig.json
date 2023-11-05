@@ -2,10 +2,6 @@
   "compilerOptions": {
     /* Projects */
     "incremental": true,
-    "baseUrl": "./",
-    "paths": {
-      "@/*": ["src/*"]
-    },
 
     /* Language and Environment */
     "target": "es2016",
