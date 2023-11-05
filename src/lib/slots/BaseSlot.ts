@@ -57,6 +57,7 @@ abstract class BaseSlot implements IBaseSlot {
   }
 
   clear() {
+    this.selectedValues.fill(false);
     return this;
   }
 
