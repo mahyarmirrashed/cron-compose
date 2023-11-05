@@ -1,0 +1,25 @@
+{
+  "hooks": {
+    "before:init": "pnpm run test"
+  },
+  "git": {
+    "requireBranch": "main",
+    "commitMessage": "chore(release): ${version}",
+    "tagName": "${version}",
+    "tagAnnotation": "Release v${version}"
+  },
+  "github": {
+    "release": true,
+    "releaseName": "${version}"
+  },
+  "npm": {
+    "publish": true,
+    "tag": ["latest", "${version}"]
+  },
+  "plugins": {
+    "@release-it/conventional-changelog": {
+      "infile": "CHANGELOG.md",
+      "preset": "angular"
+    }
+  }
+}
