@@ -27,7 +27,7 @@ type SlotValueType = {
 export class CronComposer {
   private slots: Map<SlotType, IBaseSlot<number | MonthString | DayString>>;
 
-  constructor() {
+  constructor(private useSecond = false) {
     this.slots = new Map();
     this.slots.set(SlotType.Second, new SecondSlot());
     this.slots.set(SlotType.Minute, new MinuteSlot());
@@ -35,6 +35,16 @@ export class CronComposer {
     this.slots.set(SlotType.Day, new DaySlot());
     this.slots.set(SlotType.Month, new MonthSlot());
     this.slots.set(SlotType.DayOfWeek, new DayOfWeekSlot());
+  }
+
+  enableSeconds() {
+    this.useSecond = true;
+    return this;
+  }
+
+  disableSeconds() {
+    this.useSecond = false;
+    return this;
   }
 
   addSingle<T extends SlotType>(slot: T, value: SlotValueType[T]) {
@@ -92,6 +102,9 @@ export class CronComposer {
       this.slots.get(SlotType.Month)?.toString(),
       this.slots.get(SlotType.DayOfWeek)?.toString(),
     ];
+
+    if (this.useSecond)
+      parts.unshift(this.slots.get(SlotType.Second)?.toString());
 
     return parts.join(" ");
   }
