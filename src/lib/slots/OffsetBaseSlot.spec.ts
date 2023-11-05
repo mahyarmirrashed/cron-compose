@@ -50,4 +50,19 @@ describe("OffsetBaseSlot", () => {
       "Value 0 is out of bounds.",
     );
   });
+
+  test("should manipulate series of slot operations correctly", () => {
+    offsetSlot.addSingle(1);
+    expect(offsetSlot.toString()).toBe("1");
+    offsetSlot.addRange(1, 30);
+    expect(offsetSlot.toString()).toBe("1-29");
+    offsetSlot.addStep(10, 10);
+    expect(offsetSlot.toString()).toBe("1-30,40,50");
+    offsetSlot.removeSingle(1);
+    expect(offsetSlot.toString()).toBe("2-30,40,50");
+    offsetSlot.removeRange(1, 10);
+    expect(offsetSlot.toString()).toBe("10-30,40,50");
+    offsetSlot.removeStep(10, 10);
+    expect(offsetSlot.toString()).toBe("11-19,21-29");
+  });
 });
