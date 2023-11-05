@@ -18,18 +18,21 @@ abstract class BaseSlot implements IBaseSlot {
   }
 
   addSingle(value: number) {
+    this.checkBounds(value);
     this.isFresh = false;
     this.selectedValues[value] = true;
     return this;
   }
 
   addRange(start: number, end: number) {
+    this.checkBounds(start, end);
     this.isFresh = false;
     this.selectedValues.fill(true, start, end);
     return this;
   }
 
   addStep(step: number, start = 0): this {
+    this.checkBounds(start);
     if (step <= 0) throw new Error("Step must be greater than 0.");
 
     this.isFresh = false;
@@ -41,16 +44,19 @@ abstract class BaseSlot implements IBaseSlot {
   }
 
   removeSingle(value: number) {
+    this.checkBounds(value);
     this.selectedValues[value] = false;
     return this;
   }
 
   removeRange(start: number, end: number) {
+    this.checkBounds(start, end);
     this.selectedValues.fill(false, start, end);
     return this;
   }
 
   removeStep(step: number, start = 0) {
+    this.checkBounds(start);
     if (step <= 0) throw new Error("Step must be greater than 0.");
 
     Array.from(
@@ -69,5 +75,13 @@ abstract class BaseSlot implements IBaseSlot {
   toString() {
     if (this.isFresh) return "*";
     return "";
+  }
+
+  private checkBounds(...values: number[]) {
+    values.forEach((value) => {
+      if (value < 0 || value >= this.maximumValue) {
+        throw new Error(`Value ${value} is out of bounds.`);
+      }
+    });
   }
 }
