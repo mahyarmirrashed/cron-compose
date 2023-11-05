@@ -2,7 +2,8 @@
   "compilerOptions": {
     /* Projects */
     "incremental": true,
-    "path": {
+    "baseUrl": "./",
+    "paths": {
       "@/*": ["src/*"]
     },
 
