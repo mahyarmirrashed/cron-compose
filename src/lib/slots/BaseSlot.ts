@@ -73,7 +73,7 @@ export abstract class BaseSlot implements IBaseSlot {
   }
 
   toString() {
-    if (this.isFresh) return "*";
+    if (this.isFresh || this.selectedValues.every((val) => val)) return "*";
 
     let ranges: string[] = [];
     let rangeStart: number | null = null;
