@@ -19,6 +19,7 @@
     "declaration": true,
     "declarationMap": true,
     "removeComments": true,
+    "outDir": "dist",
     "newLine": "lf",
 
     /* Interop Constraints */
