@@ -25,7 +25,7 @@ export abstract class BaseSlot implements IBaseSlot {
   }
 
   addRange(start: number, end: number) {
-    this.checkBounds(start, end);
+    this.checkBounds(start, end - 1);
     this.isFresh = false;
     this.selectedValues.fill(true, start, end);
     return this;
@@ -50,7 +50,7 @@ export abstract class BaseSlot implements IBaseSlot {
   }
 
   removeRange(start: number, end: number) {
-    this.checkBounds(start, end);
+    this.checkBounds(start, end - 1);
     this.selectedValues.fill(false, start, end);
     return this;
   }
