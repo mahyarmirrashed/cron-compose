@@ -1,4 +1,4 @@
-import BaseSlot from "./BaseSlot";
+import BaseSlot, { IBaseSlot } from "./BaseSlot";
 
 type DayString = "sun" | "mon" | "tue" | "wed" | "thu" | "fri" | "sat";
 
@@ -12,7 +12,7 @@ const dayMapping: Record<DayString, number> = {
   sat: 6,
 };
 
-class DayOfWeekSlot extends BaseSlot {
+class DayOfWeekSlot extends BaseSlot implements IBaseSlot<number | DayString> {
   constructor() {
     super(7);
   }

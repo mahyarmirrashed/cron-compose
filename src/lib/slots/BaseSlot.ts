@@ -1,10 +1,10 @@
-interface IBaseSlot {
-  addSingle(value: number): this;
-  addRange(start: number, end: number): this;
-  addStep(step: number, start?: number): this;
-  removeSingle(value: number): this;
-  removeRange(start: number, end: number): this;
-  removeStep(step: number, start?: number): this;
+export interface IBaseSlot<T = number> {
+  addSingle(value: T): this;
+  addRange(start: T, end: T): this;
+  addStep(step: T, start?: T): this;
+  removeSingle(value: T): this;
+  removeRange(start: T, end: T): this;
+  removeStep(step: T, start?: T): this;
   clear(): this;
   toString(): string;
 }

@@ -1,3 +1,4 @@
+import { IBaseSlot } from "./BaseSlot";
 import OffsetBaseSlot from "./OffsetBaseSlot";
 
 type MonthString =
@@ -29,7 +30,10 @@ const monthMapping: Record<MonthString, number> = {
   dec: 12,
 };
 
-class MonthSlot extends OffsetBaseSlot {
+class MonthSlot
+  extends OffsetBaseSlot
+  implements IBaseSlot<number | MonthString>
+{
   constructor() {
     // Months are from 1 to 12 inclusive, so maximumValue is 13 to accommodate the offset
     super(13);
