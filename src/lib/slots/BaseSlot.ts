@@ -13,7 +13,7 @@ abstract class BaseSlot implements IBaseSlot {
   private selectedValues: boolean[];
 
   constructor(private maximumValue: number) {
-    this.selectedValues = new Array(maximumValue).fill(false);
+    this.selectedValues = new Array(maximumValue).fill(true);
   }
 
   addSingle(_value: number) {
