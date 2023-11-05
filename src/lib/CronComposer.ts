@@ -48,7 +48,7 @@ export class CronComposer {
   }
 
   addSingle<T extends SlotType>(slot: T, value: SlotValueType[T]) {
-    this.slots.get(slot)?.addSingle(value);
+    this.slots.get(slot)!.addSingle(value);
     return this;
   }
 
@@ -57,17 +57,17 @@ export class CronComposer {
     start: SlotValueType[T],
     end: SlotValueType[T],
   ) {
-    this.slots.get(slot)?.addRange(start, end);
+    this.slots.get(slot)!.addRange(start, end);
     return this;
   }
 
   addStep<T extends SlotType>(slot: T, step: number, start?: SlotValueType[T]) {
-    this.slots.get(slot)?.addStep(step, start);
+    this.slots.get(slot)!.addStep(step, start);
     return this;
   }
 
   removeSingle<T extends SlotType>(slot: T, value: SlotValueType[T]) {
-    this.slots.get(slot)?.removeSingle(value);
+    this.slots.get(slot)!.removeSingle(value);
     return this;
   }
 
@@ -76,7 +76,7 @@ export class CronComposer {
     start: SlotValueType[T],
     end: SlotValueType[T],
   ) {
-    this.slots.get(slot)?.removeRange(start, end);
+    this.slots.get(slot)!.removeRange(start, end);
     return this;
   }
 
@@ -85,26 +85,26 @@ export class CronComposer {
     step: number,
     start?: SlotValueType[T],
   ) {
-    this.slots.get(slot)?.removeStep(step, start);
+    this.slots.get(slot)!.removeStep(step, start);
     return this;
   }
 
   clear<T extends SlotType>(slot: T) {
-    this.slots.get(slot)?.clear();
+    this.slots.get(slot)!.clear();
     return this;
   }
 
   toString() {
     const parts = [
-      this.slots.get(SlotType.Minute)?.toString(),
-      this.slots.get(SlotType.Hour)?.toString(),
-      this.slots.get(SlotType.Day)?.toString(),
-      this.slots.get(SlotType.Month)?.toString(),
-      this.slots.get(SlotType.DayOfWeek)?.toString(),
+      this.slots.get(SlotType.Minute)!.toString(),
+      this.slots.get(SlotType.Hour)!.toString(),
+      this.slots.get(SlotType.Day)!.toString(),
+      this.slots.get(SlotType.Month)!.toString(),
+      this.slots.get(SlotType.DayOfWeek)!.toString(),
     ];
 
     if (this.useSecond)
-      parts.unshift(this.slots.get(SlotType.Second)?.toString());
+      parts.unshift(this.slots.get(SlotType.Second)!.toString());
 
     return parts.join(" ");
   }
