@@ -10,6 +10,7 @@ interface IBaseSlot {
 }
 
 abstract class BaseSlot implements IBaseSlot {
+  private isFresh = true;
   private selectedValues: boolean[];
 
   constructor(private maximumValue: number) {
@@ -17,11 +18,13 @@ abstract class BaseSlot implements IBaseSlot {
   }
 
   addSingle(value: number) {
+    this.isFresh = false;
     this.selectedValues[value] = true;
     return this;
   }
 
   addRange(start: number, end: number) {
+    this.isFresh = false;
     this.selectedValues.fill(true, start, end);
     return this;
   }
@@ -29,6 +32,7 @@ abstract class BaseSlot implements IBaseSlot {
   addStep(step: number, start = 0): this {
     if (step <= 0) throw new Error("Step must be greater than 0.");
 
+    this.isFresh = false;
     Array.from(
       { length: Math.ceil((this.maximumValue - start) / step) },
       (_, i) => start + i * step,
@@ -57,11 +61,13 @@ abstract class BaseSlot implements IBaseSlot {
   }
 
   clear() {
+    this.isFresh = true;
     this.selectedValues.fill(false);
     return this;
   }
 
   toString() {
+    if (this.isFresh) return "*";
     return "";
   }
 }
