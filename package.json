@@ -9,6 +9,7 @@
   },
   "main": "index.js",
   "scripts": {
+    "build:clean": "rm -rf dist",
     "build:main": "tsc -p tsconfig.json",
     "build:prod": "tsc -p tsconfig.prod.json",
     "dev": "nodemon --watch src --exec ts-node src/index.ts",

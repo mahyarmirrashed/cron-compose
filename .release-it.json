@@ -1,6 +1,10 @@
 {
   "hooks": {
-    "before:init": "pnpm run test"
+    "before:init": [
+      "pnpm run build:clean",
+      "pnpm run test",
+      "pnpm run build:prod"
+    ]
   },
   "git": {
     "requireBranch": "main",
