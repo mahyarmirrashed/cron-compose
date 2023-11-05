@@ -9,6 +9,7 @@
   },
   "main": "index.js",
   "scripts": {
+    "build:main": "tsc -p tsconfig.json",
     "format": "npx prettier --write scripts/ src/",
     "test": "jest"
   },
