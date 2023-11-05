@@ -40,6 +40,11 @@ describe("BaseSlot", () => {
     expect(slot.toString()).toBe("0-29");
   });
 
+  test("should add terminating single value range correctly", () => {
+    slot.addRange(59, 60);
+    expect(slot.toString()).toBe("59");
+  });
+
   test("should cover entire range and return *", () => {
     slot.addRange(0, 60);
     expect(slot.toString()).toBe("*");
