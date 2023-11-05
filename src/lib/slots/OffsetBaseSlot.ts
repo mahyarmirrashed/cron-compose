@@ -35,16 +35,6 @@ abstract class OffsetBaseSlot extends BaseSlot {
     return super.removeStep(step, start);
   }
 
-  override toString() {
-    let output = super.toString();
-
-    if (output === "*") return output;
-    else if (output.startsWith("0-1,")) return output.replace("0-1,", "1,");
-    else if (output.startsWith("0-")) return output.replace("0-", "1-");
-    else if (output.startsWith("0,")) return output.replace("0,", "1,");
-    else return output;
-  }
-
   private checkNotZero(...values: number[]) {
     values.forEach((value) => {
       if (value === 0) {
