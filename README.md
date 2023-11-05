@@ -1,7 +1,6 @@
 # Cron Compose
 
 [![npm](https://img.shields.io/npm/l/cron-compose.svg)](https://github.com/mahyarmirrashed/cron-compose/blob/master/LICENSE.md)
-[![npm](https://img.shields.io/npm/v/cron-compose.svg)](https://img.shields.io/npm/v/cron-compose.svg)
 
 Cron Compose is a TypeScript library designed to make the creation of cron expressions simpler and less error-prone. With an intuitive API, it abstracts the complexities of cron syntax, allowing developers to build cron expressions through method chaining and clear function calls.
 
