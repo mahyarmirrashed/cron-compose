@@ -7,32 +7,32 @@ abstract class OffsetBaseSlot extends BaseSlot {
 
   override addSingle(value: number) {
     this.checkNotZero(value);
-    return super.addSingle(value - 1);
+    return super.addSingle(value);
   }
 
   override addRange(start: number, end: number) {
     this.checkNotZero(start, end);
-    return super.addRange(start - 1, end - 1);
+    return super.addRange(start, end);
   }
 
   override addStep(step: number, start = 1) {
     this.checkNotZero(start);
-    return super.addStep(step, start - 1);
+    return super.addStep(step, start);
   }
 
   override removeSingle(value: number) {
     this.checkNotZero(value);
-    return super.removeSingle(value - 1);
+    return super.removeSingle(value);
   }
 
   override removeRange(start: number, end: number) {
     this.checkNotZero(start, end);
-    return super.removeRange(start - 1, end - 1);
+    return super.removeRange(start, end);
   }
 
   override removeStep(step: number, start = 1) {
     this.checkNotZero(start);
-    return super.removeStep(step, start - 1);
+    return super.removeStep(step, start);
   }
 
   override toString() {
