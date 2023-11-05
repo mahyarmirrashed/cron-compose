@@ -74,7 +74,28 @@ abstract class BaseSlot implements IBaseSlot {
 
   toString() {
     if (this.isFresh) return "*";
-    return "";
+
+    let ranges: string[] = [];
+    let rangeStart: number | null = null;
+
+    this.selectedValues.forEach((isSelected, index) => {
+      if (isSelected && rangeStart === null) {
+        rangeStart = index;
+      } else if (!isSelected && rangeStart !== null) {
+        const isSingleValueRange = rangeStart === index - 1;
+        if (isSingleValueRange) ranges.push(`${rangeStart}`);
+        else ranges.push(`${rangeStart}-${index - 1}`);
+        rangeStart = null;
+      }
+    });
+
+    if (rangeStart !== null) {
+      const isSingleValueRange = rangeStart === this.maximumValue - 1;
+      if (isSingleValueRange) ranges.push(`${rangeStart}`);
+      else ranges.push(`${rangeStart}-${this.maximumValue - 1}`);
+    }
+
+    return ranges.length > 0 ? ranges.join(",") : "*";
   }
 
   private checkBounds(...values: number[]) {
