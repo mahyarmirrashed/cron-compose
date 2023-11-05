@@ -1,5 +1,12 @@
 
 
+## [0.1.1](https://github.com/mahyarmirrashed/cron-compose/compare/0.1.0...0.1.1) (2023-11-05)
+
+
+### Performance Improvements
+
+* do not include source in packaged output ([78629b7](https://github.com/mahyarmirrashed/cron-compose/commit/78629b76f88dc316de1082d03d092164601bd1a6))
+
 # 0.1.0 (2023-11-05)
 
 
