@@ -1,6 +1,6 @@
 import BaseSlot, { IBaseSlot } from "./BaseSlot";
 
-type DayString = "sun" | "mon" | "tue" | "wed" | "thu" | "fri" | "sat";
+export type DayString = "sun" | "mon" | "tue" | "wed" | "thu" | "fri" | "sat";
 
 const dayMapping: Record<DayString, number> = {
   sun: 0,

@@ -1,7 +1,7 @@
 import { IBaseSlot } from "./BaseSlot";
 import OffsetBaseSlot from "./OffsetBaseSlot";
 
-type MonthString =
+export type MonthString =
   | "jan"
   | "feb"
   | "mar"

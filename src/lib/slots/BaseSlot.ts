@@ -9,7 +9,7 @@ export interface IBaseSlot<T = number> {
   toString(): string;
 }
 
-abstract class BaseSlot implements IBaseSlot {
+export abstract class BaseSlot implements IBaseSlot {
   private isFresh = true;
   private selectedValues: boolean[];
 
