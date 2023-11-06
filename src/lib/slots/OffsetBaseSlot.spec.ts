@@ -54,7 +54,7 @@ describe("OffsetBaseSlot", () => {
   it("should manipulate series of slot operations correctly", () => {
     offsetSlot.addSingle(1);
     expect(offsetSlot.toString()).toBe("1");
-    offsetSlot.addRange(1, 30);
+    offsetSlot.addRange(1, 29);
     expect(offsetSlot.toString()).toBe("1-29");
     offsetSlot.addStep(10);
     expect(offsetSlot.toString()).toBe("1-29,31,41,51");
@@ -62,7 +62,7 @@ describe("OffsetBaseSlot", () => {
     expect(offsetSlot.toString()).toBe("1-31,41,51");
     offsetSlot.removeSingle(1);
     expect(offsetSlot.toString()).toBe("2-31,41,51");
-    offsetSlot.removeRange(1, 10);
+    offsetSlot.removeRange(1, 9);
     expect(offsetSlot.toString()).toBe("10-31,41,51");
     offsetSlot.removeStep(20);
     expect(offsetSlot.toString()).toBe("10-20,22-31,51");

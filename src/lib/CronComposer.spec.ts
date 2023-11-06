@@ -65,7 +65,7 @@ describe("CronComposer", () => {
       expect(cronComposer.toString()).toBe(
         prependWithStar("1 * * * *", withSeconds),
       );
-      cronComposer.addRange(SlotType.Minute, 1, 30);
+      cronComposer.addRange(SlotType.Minute, 1, 29);
       expect(cronComposer.toString()).toBe(
         prependWithStar("1-29 * * * *", withSeconds),
       );
@@ -77,7 +77,7 @@ describe("CronComposer", () => {
       expect(cronComposer.toString()).toBe(
         prependWithStar("2-30,40,50 * * * *", withSeconds),
       );
-      cronComposer.removeRange(SlotType.Minute, 1, 10);
+      cronComposer.removeRange(SlotType.Minute, 1, 9);
       expect(cronComposer.toString()).toBe(
         prependWithStar("10-30,40,50 * * * *", withSeconds),
       );

@@ -36,29 +36,29 @@ describe("BaseSlot", () => {
   });
 
   it("should add range correctly", () => {
-    slot.addRange(0, 30);
+    slot.addRange(0, 29);
     expect(slot.toString()).toBe("0-29");
   });
 
   it("should add terminating single value range correctly", () => {
-    slot.addRange(59, 60);
+    slot.addRange(59, 59);
     expect(slot.toString()).toBe("59");
   });
 
   it("should cover entire range and return *", () => {
-    slot.addRange(0, 60);
+    slot.addRange(0, 59);
     expect(slot.toString()).toBe("*");
   });
 
   it("should combine adjacent ranges correctly", () => {
-    slot.addRange(0, 5);
-    slot.addRange(5, 10);
+    slot.addRange(0, 4);
+    slot.addRange(5, 9);
     expect(slot.toString()).toBe("0-9");
   });
 
   it("should combine intersecting ranges correctly", () => {
-    slot.addRange(0, 10);
-    slot.addRange(5, 15);
+    slot.addRange(0, 9);
+    slot.addRange(5, 14);
     expect(slot.toString()).toBe("0-14");
   });
 
@@ -67,7 +67,7 @@ describe("BaseSlot", () => {
   });
 
   it("should throw an error when adding ending value is greater than upper bound", () => {
-    expect(() => slot.addRange(0, 61)).toThrow("Value 60 is out of bounds");
+    expect(() => slot.addRange(0, 60)).toThrow("Value 60 is out of bounds");
   });
 
   it("should throw an error when adding upper bound is less than lower bound", () => {
@@ -97,7 +97,7 @@ describe("BaseSlot", () => {
   });
 
   it("should remove single value correctly", () => {
-    slot.addRange(0, 60);
+    slot.addRange(0, 59);
     slot.removeSingle(0);
     expect(slot.toString()).toBe("1-59");
   });
@@ -117,22 +117,22 @@ describe("BaseSlot", () => {
   });
 
   it("should remove range correctly", () => {
-    slot.addRange(0, 60);
-    slot.removeRange(5, 25);
+    slot.addRange(0, 59);
+    slot.removeRange(5, 24);
     expect(slot.toString()).toBe("0-4,25-59");
   });
 
   it("should remove adjacent ranges correctly", () => {
-    slot.addRange(0, 60);
-    slot.removeRange(5, 15);
-    slot.removeRange(15, 25);
+    slot.addRange(0, 59);
+    slot.removeRange(5, 14);
+    slot.removeRange(15, 24);
     expect(slot.toString()).toBe("0-4,25-59");
   });
 
   it("should remove intersecting ranges correctly", () => {
-    slot.addRange(0, 60);
-    slot.removeRange(5, 20);
-    slot.removeRange(10, 25);
+    slot.addRange(0, 59);
+    slot.removeRange(5, 19);
+    slot.removeRange(10, 24);
     expect(slot.toString()).toBe("0-4,25-59");
   });
 
@@ -141,7 +141,7 @@ describe("BaseSlot", () => {
   });
 
   it("should throw an error when removing ending value is greater than upper bound", () => {
-    expect(() => slot.removeRange(0, 61)).toThrow("Value 60 is out of bounds");
+    expect(() => slot.removeRange(0, 60)).toThrow("Value 60 is out of bounds");
   });
 
   it("should throw an error when removing upper bound is less than lower bound", () => {
@@ -151,19 +151,19 @@ describe("BaseSlot", () => {
   });
 
   it("should remove steps correctly", () => {
-    slot.addRange(0, 60);
+    slot.addRange(0, 59);
     slot.removeStep(15);
     expect(slot.toString()).toBe("1-14,16-29,31-44,46-59");
   });
 
   it("should remove steps correctly with starting value", () => {
-    slot.addRange(0, 60);
+    slot.addRange(0, 59);
     slot.removeStep(15, 5);
     expect(slot.toString()).toBe("0-4,6-19,21-34,36-49,51-59");
   });
 
   it("should combine remove steps correctly and return *", () => {
-    slot.addRange(0, 60);
+    slot.addRange(0, 59);
     slot.removeStep(2);
     slot.removeStep(2, 1);
     expect(slot.toString()).toBe("*");
@@ -184,8 +184,8 @@ describe("BaseSlot", () => {
     slot.removeStep(3);
     slot.addSingle(1);
     slot.removeSingle(2);
-    slot.addRange(20, 40);
-    slot.removeRange(25, 35);
+    slot.addRange(20, 39);
+    slot.removeRange(25, 34);
     slot.clear();
     expect(slot.toString()).toBe("*");
   });
@@ -195,8 +195,8 @@ describe("BaseSlot", () => {
     slot.removeStep(3);
     slot.addSingle(1);
     slot.removeSingle(2);
-    slot.addRange(10, 60);
-    slot.removeRange(20, 50);
+    slot.addRange(10, 59);
+    slot.removeRange(20, 49);
     expect(slot.toString()).toBe("1,4,8,10-19,50-59");
   });
 });

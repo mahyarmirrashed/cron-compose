@@ -22,13 +22,23 @@ describe("MonthSlot", () => {
   });
 
   it("should add number range correctly", () => {
-    slot.addRange(1, 7);
+    slot.addRange(1, 6);
     expect(slot.toString()).toBe("1-6");
   });
 
   it("should add number range correctly", () => {
-    slot.addRange("jan", "jul");
+    slot.addRange("jan", "jun");
     expect(slot.toString()).toBe("1-6");
+  });
+
+  it("should add number range correctly and return *", () => {
+    slot.addRange(1, 12);
+    expect(slot.toString()).toBe("*");
+  });
+
+  it("should add number range correctly and return *", () => {
+    slot.addRange("jan", "dec");
+    expect(slot.toString()).toBe("*");
   });
 
   it("should add step with no start correctly", () => {
@@ -47,43 +57,43 @@ describe("MonthSlot", () => {
   });
 
   it("should remove single number value correctly", () => {
-    slot.addRange(1, 13);
+    slot.addRange(1, 12);
     slot.removeSingle(1);
     expect(slot.toString()).toBe("2-12");
   });
 
   it("should remove single month enum correctly", () => {
-    slot.addRange(1, 13);
+    slot.addRange(1, 12);
     slot.removeSingle("jan");
     expect(slot.toString()).toBe("2-12");
   });
 
   it("should remove number range correctly", () => {
-    slot.addRange(1, 13);
+    slot.addRange(1, 12);
     slot.removeRange(3, 5);
-    expect(slot.toString()).toBe("1-2,5-12");
+    expect(slot.toString()).toBe("1-2,6-12");
   });
 
   it("should remove month enum range correctly", () => {
-    slot.addRange(1, 13);
+    slot.addRange(1, 12);
     slot.removeRange("mar", "may");
-    expect(slot.toString()).toBe("1-2,5-12");
+    expect(slot.toString()).toBe("1-2,6-12");
   });
 
   it("should remove step with no start correctly", () => {
-    slot.addRange(1, 13);
+    slot.addRange(1, 12);
     slot.removeStep(2);
     expect(slot.toString()).toBe("2,4,6,8,10,12");
   });
 
   it("should remove step with number start correctly", () => {
-    slot.addRange(1, 13);
+    slot.addRange(1, 12);
     slot.removeStep(2, 2);
     expect(slot.toString()).toBe("1,3,5,7,9,11");
   });
 
   it("should remove step with month enum start correctly", () => {
-    slot.addRange(1, 13);
+    slot.addRange(1, 12);
     slot.removeStep(2, "feb");
     expect(slot.toString()).toBe("1,3,5,7,9,11");
   });

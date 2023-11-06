@@ -25,12 +25,12 @@ export abstract class BaseSlot implements IBaseSlot {
   }
 
   addRange(start: number, end: number) {
-    this.checkBounds(start, end - 1);
+    this.checkBounds(start, end);
     if (end < start)
       throw new Error("Start value must be less than or equal to end value.");
 
     this.isFresh = false;
-    this.selectedValues.fill(true, start, end);
+    this.selectedValues.fill(true, start, end + 1);
     return this;
   }
 
@@ -53,11 +53,11 @@ export abstract class BaseSlot implements IBaseSlot {
   }
 
   removeRange(start: number, end: number) {
-    this.checkBounds(start, end - 1);
+    this.checkBounds(start, end);
     if (end < start)
       throw new Error("Start value must be less than or equal to end value.");
 
-    this.selectedValues.fill(false, start, end);
+    this.selectedValues.fill(false, start, end + 1);
     return this;
   }
 
