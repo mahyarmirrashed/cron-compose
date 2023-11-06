@@ -13,7 +13,7 @@ export abstract class BaseSlot implements IBaseSlot {
   private isFresh = true;
   private selectedValues: boolean[];
 
-  constructor(private maximumValue: number) {
+  constructor(protected maximumValue: number) {
     this.selectedValues = new Array(maximumValue).fill(false);
   }
 

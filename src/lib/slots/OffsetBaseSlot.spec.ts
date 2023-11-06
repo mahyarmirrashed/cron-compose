@@ -2,7 +2,7 @@ import OffsetBaseSlot from "./OffsetBaseSlot";
 
 class DummyOffsetSlot extends OffsetBaseSlot {
   constructor() {
-    super(60);
+    super(61);
   }
 }
 
@@ -49,6 +49,13 @@ describe("OffsetBaseSlot", () => {
     expect(() => offsetSlot.removeStep(10, 0)).toThrow(
       "Value 0 is out of bounds.",
     );
+  });
+
+  it("should consolidate entire range into * correctly", () => {
+    offsetSlot.addRange(1, 30);
+    expect(offsetSlot.toString()).toBe("1-30");
+    offsetSlot.addRange(31, 60);
+    expect(offsetSlot.toString()).toBe("*");
   });
 
   it("should manipulate series of slot operations correctly", () => {
