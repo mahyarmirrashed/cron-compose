@@ -22,4 +22,8 @@ describe("ValueConverter", () => {
     expect(valueConverter.convertToNumber("b")).toBe(2);
     expect(valueConverter.convertToNumber("c")).toBe(3);
   });
+
+  test("should throw an error if an unmapped string is passed", () => {
+    expect(() => valueConverter.convertToNumber("four" as any)).toThrow();
+  });
 });
