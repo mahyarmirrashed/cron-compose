@@ -12,53 +12,53 @@ describe("CronComposer", () => {
     cronComposer = new CronComposer();
   });
 
-  test("should initialize correctly", () => {
+  it("should initialize correctly", () => {
     expect(cronComposer.toString()).toBe("* * * * *");
   });
 
-  test("should enable and disable seconds correctly", () => {
+  it("should enable and disable seconds correctly", () => {
     expect(cronComposer.enableSeconds().toString()).toBe("* * * * * *");
     expect(cronComposer.disableSeconds().toString()).toBe("* * * * *");
   });
 
-  test("should manipulate second slot correctly", () => {
+  it("should manipulate second slot correctly", () => {
     cronComposer.addSingle(SlotType.Second, 1);
     expect(cronComposer.toString()).toBe("* * * * *");
     expect(cronComposer.enableSeconds().toString()).toBe("1 * * * * *");
   });
 
-  test("should manipulate minute slot correctly", () => {
+  it("should manipulate minute slot correctly", () => {
     cronComposer.addSingle(SlotType.Minute, 1);
     expect(cronComposer.toString()).toBe("1 * * * *");
     expect(cronComposer.enableSeconds().toString()).toBe("* 1 * * * *");
   });
 
-  test("should manipulate hour slot correctly", () => {
+  it("should manipulate hour slot correctly", () => {
     cronComposer.addSingle(SlotType.Hour, 1);
     expect(cronComposer.toString()).toBe("* 1 * * *");
     expect(cronComposer.enableSeconds().toString()).toBe("* * 1 * * *");
   });
 
-  test("should manipulate day slot correctly", () => {
+  it("should manipulate day slot correctly", () => {
     cronComposer.addSingle(SlotType.Day, 1);
     expect(cronComposer.toString()).toBe("* * 1 * *");
     expect(cronComposer.enableSeconds().toString()).toBe("* * * 1 * *");
   });
 
-  test("should manipulate month slot correctly", () => {
+  it("should manipulate month slot correctly", () => {
     cronComposer.addSingle(SlotType.Month, 1);
     expect(cronComposer.toString()).toBe("* * * 1 *");
     expect(cronComposer.enableSeconds().toString()).toBe("* * * * 1 *");
   });
 
-  test("should manipulate day of week slot correctly", () => {
+  it("should manipulate day of week slot correctly", () => {
     cronComposer.addSingle(SlotType.DayOfWeek, 1);
     expect(cronComposer.toString()).toBe("* * * * 1");
     expect(cronComposer.enableSeconds().toString()).toBe("* * * * * 1");
   });
 
   [true, false].forEach((withSeconds) => {
-    test("should perform complex slot operations correctly", () => {
+    it("should perform complex slot operations correctly", () => {
       if (withSeconds) cronComposer.enableSeconds();
 
       cronComposer.addSingle(SlotType.Minute, 1);
