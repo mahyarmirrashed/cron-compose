@@ -31,7 +31,7 @@ import { CronComposer, SlotType } from "cron-compose";
 const cronComposer = new CronComposer()
   .addSingle(SlotType.Minute, 1)
   .addRange(SlotType.Day, 1, 8)
-  .addRange(SlotType.Day, 6, 14);
+  .addRange(SlotType.Day, 6, 13);
 
 console.log(cronComposer.toString()); // "1 * 1-13 * *"
 ```
