@@ -1,5 +1,24 @@
 
 
+## [1.0.0](https://github.com/mahyarmirrashed/cron-compose/compare/0.1.1...1.0.0) (2023-11-06)
+
+
+### ⚠ BREAKING CHANGES
+
+* make range methods upper bound inclusive
+
+### Features
+
+* make range methods upper bound inclusive ([5635ab5](https://github.com/mahyarmirrashed/cron-compose/commit/5635ab51638f1f45911adb5d92b56e2af6224a34))
+* throw error if mapping is not valid ([abee6e0](https://github.com/mahyarmirrashed/cron-compose/commit/abee6e0b78be53f5fc946aa4a8d55d5d25945880))
+
+
+### Bug Fixes
+
+* assert that no conditional branching is possible when getting ([3daabbb](https://github.com/mahyarmirrashed/cron-compose/commit/3daabbb26a9cbb653d454586907036e8ed2237aa))
+* consolidate offset base slot range correctly ([668fc5f](https://github.com/mahyarmirrashed/cron-compose/commit/668fc5febd4ffc4f58605e973ee797755a969e75))
+* step should always be a number value not string ([d54c11d](https://github.com/mahyarmirrashed/cron-compose/commit/d54c11db331d4df86ffce2532e51360046f3741a))
+
 ## [0.1.1](https://github.com/mahyarmirrashed/cron-compose/compare/0.1.0...0.1.1) (2023-11-05)
 
 
