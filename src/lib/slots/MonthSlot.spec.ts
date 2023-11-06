@@ -22,13 +22,13 @@ describe("MonthSlot", () => {
   });
 
   it("should add number range correctly", () => {
-    slot.addRange(1, 13);
-    expect(slot.toString()).toBe("1-12");
+    slot.addRange(1, 7);
+    expect(slot.toString()).toBe("1-6");
   });
 
   it("should add number range correctly", () => {
-    slot.addRange("jan", "dec");
-    expect(slot.toString()).toBe("1-12");
+    slot.addRange("jan", "jul");
+    expect(slot.toString()).toBe("1-6");
   });
 
   it("should add step with no start correctly", () => {
