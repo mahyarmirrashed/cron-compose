@@ -53,11 +53,11 @@ class MonthSlot
     );
   }
 
-  override addStep<T extends number | MonthString>(step: T, start: T = 1 as T) {
-    return super.addStep(
-      this.valueConverter.convertToNumber(step),
-      this.valueConverter.convertToNumber(start),
-    );
+  override addStep<T extends number | MonthString>(
+    step: number,
+    start: T = 1 as T,
+  ) {
+    return super.addStep(step, this.valueConverter.convertToNumber(start));
   }
 
   override removeSingle<T extends number | MonthString>(value: T) {
@@ -72,13 +72,10 @@ class MonthSlot
   }
 
   override removeStep<T extends number | MonthString>(
-    step: T,
+    step: number,
     start: T = 1 as T,
   ) {
-    return super.removeStep(
-      this.valueConverter.convertToNumber(step),
-      this.valueConverter.convertToNumber(start),
-    );
+    return super.removeStep(step, this.valueConverter.convertToNumber(start));
   }
 }
 

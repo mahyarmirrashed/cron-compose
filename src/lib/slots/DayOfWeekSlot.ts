@@ -31,11 +31,11 @@ class DayOfWeekSlot extends BaseSlot implements IBaseSlot<number | DayString> {
     );
   }
 
-  override addStep<T extends number | DayString>(step: T, start: T = 0 as T) {
-    return super.addStep(
-      this.valueConverter.convertToNumber(step),
-      this.valueConverter.convertToNumber(start),
-    );
+  override addStep<T extends number | DayString>(
+    step: number,
+    start: T = 0 as T,
+  ) {
+    return super.addStep(step, this.valueConverter.convertToNumber(start));
   }
 
   override removeSingle<T extends number | DayString>(value: T) {
@@ -50,13 +50,10 @@ class DayOfWeekSlot extends BaseSlot implements IBaseSlot<number | DayString> {
   }
 
   override removeStep<T extends number | DayString>(
-    step: T,
+    step: number,
     start: T = 0 as T,
   ) {
-    return super.removeStep(
-      this.valueConverter.convertToNumber(step),
-      this.valueConverter.convertToNumber(start),
-    );
+    return super.removeStep(step, this.valueConverter.convertToNumber(start));
   }
 }
 
