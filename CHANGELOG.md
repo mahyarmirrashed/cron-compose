@@ -1,5 +1,7 @@
 
 
+## [1.0.1](https://github.com/mahyarmirrashed/cron-compose/compare/1.0.0...1.0.1) (2023-11-06)
+
 ## [1.0.0](https://github.com/mahyarmirrashed/cron-compose/compare/0.1.1...1.0.0) (2023-11-06)
 
 
