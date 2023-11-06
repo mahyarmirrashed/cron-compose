@@ -65,7 +65,7 @@ describe("OffsetBaseSlot", () => {
     expect(offsetSlot.toString()).toBe("1-29");
     offsetSlot.addStep(10);
     expect(offsetSlot.toString()).toBe("1-29,31,41,51");
-    offsetSlot.addStep(30, 30);
+    offsetSlot.addStep(35, 30);
     expect(offsetSlot.toString()).toBe("1-31,41,51");
     offsetSlot.removeSingle(1);
     expect(offsetSlot.toString()).toBe("2-31,41,51");
