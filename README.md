@@ -27,13 +27,12 @@ Here's how to use Cron Compose:
 ```ts
 import { CronComposer, SlotType } from "cron-compose";
 
-const cronExpr = new CronComposer()
+const cronComposer = new CronComposer()
   .addSingle(SlotType.Minute, 1)
   .addRange(SlotType.Day, 1, 8)
-  .addRange(SlotType.Day, 6, 14)
-  .toString();
+  .addRange(SlotType.Day, 6, 14);
 
-console.log(cronExpr); // Outputs the generated cron expression
+console.log(cronComposer.toString()); // "1 * 1-13 * *"
 ```
 
 ## API Overview
