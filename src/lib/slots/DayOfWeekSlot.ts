@@ -1,3 +1,4 @@
+import { ValueConverter } from "../ValueConverter";
 import BaseSlot, { IBaseSlot } from "./BaseSlot";
 
 export type DayString = "sun" | "mon" | "tue" | "wed" | "thu" | "fri" | "sat";
@@ -13,41 +14,38 @@ const dayMapping: Record<DayString, number> = {
 };
 
 class DayOfWeekSlot extends BaseSlot implements IBaseSlot<number | DayString> {
+  private valueConverter = new ValueConverter(dayMapping);
+
   constructor() {
     super(7);
   }
 
-  private convertToNumber(value: number | DayString) {
-    if (typeof value === "number") return value;
-    else return dayMapping[value.toLowerCase() as DayString];
-  }
-
   override addSingle<T extends number | DayString>(value: T) {
-    return super.addSingle(this.convertToNumber(value));
+    return super.addSingle(this.valueConverter.convertToNumber(value));
   }
 
   override addRange<T extends number | DayString>(start: T, end: T) {
     return super.addRange(
-      this.convertToNumber(start),
-      this.convertToNumber(end),
+      this.valueConverter.convertToNumber(start),
+      this.valueConverter.convertToNumber(end),
     );
   }
 
   override addStep<T extends number | DayString>(step: T, start: T = 0 as T) {
     return super.addStep(
-      this.convertToNumber(step),
-      this.convertToNumber(start),
+      this.valueConverter.convertToNumber(step),
+      this.valueConverter.convertToNumber(start),
     );
   }
 
   override removeSingle<T extends number | DayString>(value: T) {
-    return super.removeSingle(this.convertToNumber(value));
+    return super.removeSingle(this.valueConverter.convertToNumber(value));
   }
 
   override removeRange<T extends number | DayString>(start: T, end: T) {
     return super.removeRange(
-      this.convertToNumber(start),
-      this.convertToNumber(end),
+      this.valueConverter.convertToNumber(start),
+      this.valueConverter.convertToNumber(end),
     );
   }
 
@@ -56,8 +54,8 @@ class DayOfWeekSlot extends BaseSlot implements IBaseSlot<number | DayString> {
     start: T = 0 as T,
   ) {
     return super.removeStep(
-      this.convertToNumber(step),
-      this.convertToNumber(start),
+      this.valueConverter.convertToNumber(step),
+      this.valueConverter.convertToNumber(start),
     );
   }
 }

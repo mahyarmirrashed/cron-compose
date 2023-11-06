@@ -1,3 +1,4 @@
+import { ValueConverter } from "../ValueConverter";
 import { IBaseSlot } from "./BaseSlot";
 import OffsetBaseSlot from "./OffsetBaseSlot";
 
@@ -34,42 +35,39 @@ class MonthSlot
   extends OffsetBaseSlot
   implements IBaseSlot<number | MonthString>
 {
+  private valueConverter = new ValueConverter(monthMapping);
+
   constructor() {
     // Months are from 1 to 12 inclusive, so maximumValue is 13 to accommodate the offset
     super(13);
   }
 
-  private convertToNumber(value: number | MonthString): number {
-    if (typeof value === "number") return value;
-    else return monthMapping[value.toLowerCase() as MonthString];
-  }
-
   override addSingle<T extends number | MonthString>(value: T) {
-    return super.addSingle(this.convertToNumber(value));
+    return super.addSingle(this.valueConverter.convertToNumber(value));
   }
 
   override addRange<T extends number | MonthString>(start: T, end: T) {
     return super.addRange(
-      this.convertToNumber(start),
-      this.convertToNumber(end),
+      this.valueConverter.convertToNumber(start),
+      this.valueConverter.convertToNumber(end),
     );
   }
 
   override addStep<T extends number | MonthString>(step: T, start: T = 1 as T) {
     return super.addStep(
-      this.convertToNumber(step),
-      this.convertToNumber(start),
+      this.valueConverter.convertToNumber(step),
+      this.valueConverter.convertToNumber(start),
     );
   }
 
   override removeSingle<T extends number | MonthString>(value: T) {
-    return super.removeSingle(this.convertToNumber(value));
+    return super.removeSingle(this.valueConverter.convertToNumber(value));
   }
 
   override removeRange<T extends number | MonthString>(start: T, end: T) {
     return super.removeRange(
-      this.convertToNumber(start),
-      this.convertToNumber(end),
+      this.valueConverter.convertToNumber(start),
+      this.valueConverter.convertToNumber(end),
     );
   }
 
@@ -78,8 +76,8 @@ class MonthSlot
     start: T = 1 as T,
   ) {
     return super.removeStep(
-      this.convertToNumber(step),
-      this.convertToNumber(start),
+      this.valueConverter.convertToNumber(step),
+      this.valueConverter.convertToNumber(start),
     );
   }
 }
