@@ -35,17 +35,6 @@ const cronComposer = new CronComposer()
 console.log(cronComposer.toString()); // "1 * 1-13 * *"
 ```
 
-## API Overview
-
-- `addSingle(slot: SlotType, value: number | string)`: Adds a single value to the specified slot.
-- `addRange(slot: SlotType, start: number | string, end: number | string)`: Adds a range of values to the specified slot.
-- `addStep(slot: SlotType, step: number, start?: number | string)`: Adds a step value to the specified slot.
-- `removeSingle(slot: SlotType, value: number | string)`: Removes a single value from the specified slot.
-- `removeRange(slot: SlotType, start: number | string, end: number | string)`: Removes a range of values from the specified slot.
-- `removeStep(slot: SlotType, step: number, start?: number | string)`: Removes a step value from the specified slot.
-- `clear(slot: SlotType)`: Clears all values from the specified slot.
-- `toString()`: Outputs the composed cron expression as a string.
-
 ## Testing
 
 To run tests, use the following command:
