@@ -91,4 +91,50 @@ describe("CronComposer", () => {
       );
     });
   });
+
+  it("should parse a simple cron string correctly", () => {
+    cronComposer.parse("* * * * *");
+    expect(cronComposer.toString()).toBe("* * * * *");
+  });
+
+  it("should parse a simple cron string with seconds correctly", () => {
+    cronComposer.parse("* * * * * *");
+    expect(cronComposer.toString()).toBe("* * * * * *");
+  });
+
+  it("should parse a simple cron string with single value correctly", () => {
+    cronComposer.parse("0 * * * *");
+    expect(cronComposer.toString()).toBe("0 * * * *");
+    cronComposer.parse("0 * * * * *");
+    expect(cronComposer.toString()).toBe("0 * * * * *");
+  });
+
+  it("should parse a simple cron string with single range correctly", () => {
+    cronComposer.parse("0-2 * * * *");
+    expect(cronComposer.toString()).toBe("0-2 * * * *");
+    cronComposer.parse("0-2 * * * * *");
+    expect(cronComposer.toString()).toBe("0-2 * * * * *");
+  });
+
+  it("should parse a simple cron string with single step correctly", () => {
+    cronComposer.parse("*/30 * * * *");
+    expect(cronComposer.toString()).toBe("0,30 * * * *");
+    cronComposer.parse("*/30 * * * * *");
+    expect(cronComposer.toString()).toBe("0,30 * * * * *");
+  });
+
+  it("should parse a complex cron string correctly", () => {
+    cronComposer.parse("3-4,5,6-8 */30,*/20 5-8,10-12 1,1 5,3,5 *");
+    expect(cronComposer.toString()).toBe("3-8 0,20,30,40 5-8,10-12 1 3,5 *");
+  });
+
+  it("should throw an error for an invalid cron string", () => {
+    expect(() => cronComposer.parse("")).toThrow("Invalid cron string format.");
+  });
+
+  it("should throw an error for an unknown part sequence", () => {
+    expect(() => cronComposer.parse("d * * * *")).toThrow(
+      "Unknown segment sequence encountered: d",
+    );
+  });
 });
