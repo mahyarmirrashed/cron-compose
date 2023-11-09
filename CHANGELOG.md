@@ -1,5 +1,20 @@
 
 
+## [1.2.0](https://github.com/mahyarmirrashed/cron-compose/compare/1.1.0...1.2.0) (2023-11-09)
+
+
+### Features
+
+* add ability to intersect cron strings ([304b261](https://github.com/mahyarmirrashed/cron-compose/commit/304b261d3ed753e815d31ab772553cc18112ad4c))
+* add chaining of human readable functions ([7dca75f](https://github.com/mahyarmirrashed/cron-compose/commit/7dca75fea269887c8c334308fd7b8e64b01895dd))
+* export types needed for chainable function ([38489cd](https://github.com/mahyarmirrashed/cron-compose/commit/38489cd90bdaf7bba4991cf22a168add9f8ae514))
+
+
+### Bug Fixes
+
+* address case of wildcards in other base slot ([632b5d0](https://github.com/mahyarmirrashed/cron-compose/commit/632b5d01bb9eeb1a6cdc9fa6c20dcc623f5c5367))
+* handle offset base slot cases ([c10ffec](https://github.com/mahyarmirrashed/cron-compose/commit/c10ffec64b8a54d131aeab2d6d74a3d76d720026))
+
 ## [1.1.0](https://github.com/mahyarmirrashed/cron-compose/compare/1.0.1...1.1.0) (2023-11-09)
 
 
