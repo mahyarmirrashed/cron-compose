@@ -1,5 +1,13 @@
 
 
+## [1.1.0](https://github.com/mahyarmirrashed/cron-compose/compare/1.0.1...1.1.0) (2023-11-09)
+
+
+### Features
+
+* add ability to parse simple standard cron strings ([65ab731](https://github.com/mahyarmirrashed/cron-compose/commit/65ab7312ed7b8cf322c54345d7a37a567c9e0757))
+* support multiple segments to the cron string ([8607968](https://github.com/mahyarmirrashed/cron-compose/commit/8607968e1fd1e8a0963b46ea9e36eda9ccad0e74))
+
 ## [1.0.1](https://github.com/mahyarmirrashed/cron-compose/compare/1.0.0...1.0.1) (2023-11-06)
 
 ## [1.0.0](https://github.com/mahyarmirrashed/cron-compose/compare/0.1.1...1.0.0) (2023-11-06)
