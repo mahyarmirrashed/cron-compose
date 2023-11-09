@@ -1,8 +1,8 @@
 import BaseSlot from "./BaseSlot";
 
 class DummySlot extends BaseSlot {
-  constructor() {
-    super(60);
+  constructor(size = 60) {
+    super(size);
   }
 }
 
@@ -177,6 +177,39 @@ describe("BaseSlot", () => {
     slot.addSingle(0);
     slot.clear();
     expect(slot.toString()).toBe("*");
+  });
+
+  it("should intersect normal selections correctly", () => {
+    const res = slot.addStep(30).intersect(new DummySlot().addStep(20));
+
+    expect(res[0]).toBe(true);
+
+    res[0] = false;
+
+    expect(res.every((val) => !val)).toBe(true);
+  });
+
+  it("should intersect a single wildcard correctly", () => {
+    const res = slot.addStep(30).intersect(new DummySlot().addStep(1));
+
+    expect(res[0]).toBe(true);
+    expect(res[30]).toBe(true);
+
+    res[0] = false;
+    res[30] = false;
+
+    expect(res.every((val) => !val)).toBe(true);
+  });
+
+  it("should intersect two wildcards correctly", () => {
+    const res = slot.addStep(1).intersect(new DummySlot().addStep(1));
+    expect(res.every((val) => val)).toBe(true);
+  });
+
+  it("should throw an error when intersecting different sized slots correctly", () => {
+    expect(() => slot.intersect(new DummySlot(30))).toThrow(
+      "Cannot intersect slots with different maximum values.",
+    );
   });
 
   it("should clear correctly after multiple operations", () => {
