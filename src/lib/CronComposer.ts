@@ -1,9 +1,9 @@
 import { IBaseSlot } from "./slots/BaseSlot";
-import DayOfWeekSlot, { DayString } from "./slots/DayOfWeekSlot";
+import DayOfWeekSlot, { DayOfWeek } from "./slots/DayOfWeekSlot";
 import DaySlot from "./slots/DaySlot";
 import HourSlot from "./slots/HourSlot";
 import MinuteSlot from "./slots/MinuteSlot";
-import MonthSlot, { MonthString } from "./slots/MonthSlot";
+import MonthSlot, { MonthOfYear } from "./slots/MonthSlot";
 import SecondSlot from "./slots/SecondSlot";
 
 /// Different types of slots available in a Cron expression.
@@ -27,14 +27,14 @@ type SlotValueType = {
   [SlotType.Minute]: number;
   [SlotType.Hour]: number;
   [SlotType.Day]: number;
-  [SlotType.Month]: number | MonthString;
-  [SlotType.DayOfWeek]: number | DayString;
+  [SlotType.Month]: number | MonthOfYear;
+  [SlotType.DayOfWeek]: number | DayOfWeek;
 };
 
 /// Main class to compose and manipulate a Cron expression.
 /// All slots default to "*" which means that it fires for every value in that slot.
 export class CronComposer {
-  private slots: Map<SlotType, IBaseSlot<number | MonthString | DayString>>;
+  private slots: Map<SlotType, IBaseSlot<number | MonthOfYear | DayOfWeek>>;
 
   // Constructor to initialize slots for the Cron expression.
   // Optionally declare whether to display seconds slot when printing here.

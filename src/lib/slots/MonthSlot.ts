@@ -2,7 +2,7 @@ import { ValueConverter } from "../ValueConverter";
 import { IBaseSlot } from "./BaseSlot";
 import OffsetBaseSlot from "./OffsetBaseSlot";
 
-export type MonthString =
+export type MonthOfYear =
   | "jan"
   | "feb"
   | "mar"
@@ -16,7 +16,7 @@ export type MonthString =
   | "nov"
   | "dec";
 
-const monthMapping: Record<MonthString, number> = {
+const monthMapping: Record<MonthOfYear, number> = {
   jan: 1,
   feb: 2,
   mar: 3,
@@ -33,7 +33,7 @@ const monthMapping: Record<MonthString, number> = {
 
 class MonthSlot
   extends OffsetBaseSlot
-  implements IBaseSlot<number | MonthString>
+  implements IBaseSlot<number | MonthOfYear>
 {
   private valueConverter = new ValueConverter(monthMapping);
 
@@ -42,36 +42,36 @@ class MonthSlot
     super(13);
   }
 
-  override addSingle<T extends number | MonthString>(value: T) {
+  override addSingle<T extends number | MonthOfYear>(value: T) {
     return super.addSingle(this.valueConverter.convertToNumber(value));
   }
 
-  override addRange<T extends number | MonthString>(start: T, end: T) {
+  override addRange<T extends number | MonthOfYear>(start: T, end: T) {
     return super.addRange(
       this.valueConverter.convertToNumber(start),
       this.valueConverter.convertToNumber(end),
     );
   }
 
-  override addStep<T extends number | MonthString>(
+  override addStep<T extends number | MonthOfYear>(
     step: number,
     start: T = 1 as T,
   ) {
     return super.addStep(step, this.valueConverter.convertToNumber(start));
   }
 
-  override removeSingle<T extends number | MonthString>(value: T) {
+  override removeSingle<T extends number | MonthOfYear>(value: T) {
     return super.removeSingle(this.valueConverter.convertToNumber(value));
   }
 
-  override removeRange<T extends number | MonthString>(start: T, end: T) {
+  override removeRange<T extends number | MonthOfYear>(start: T, end: T) {
     return super.removeRange(
       this.valueConverter.convertToNumber(start),
       this.valueConverter.convertToNumber(end),
     );
   }
 
-  override removeStep<T extends number | MonthString>(
+  override removeStep<T extends number | MonthOfYear>(
     step: number,
     start: T = 1 as T,
   ) {
