@@ -235,8 +235,7 @@ export class CronComposer implements ICronChain {
 
     this.slots.forEach((slot, slotType) => {
       const otherSlot = other.slots.get(slotType)!;
-      const resSlot = result.slots.get(slotType)!;
-
+      const resultSlot = result.slots.get(slotType)!;
       const intersection = slot.intersect(otherSlot);
 
       intersection.forEach((isSelected, index) => {
