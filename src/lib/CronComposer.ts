@@ -1,3 +1,4 @@
+import { DayOfWeek, MonthOfYear, SlotType } from "./CronComposer.types";
 import {
   CronField,
   ExceptChain,
@@ -8,42 +9,12 @@ import {
   fieldMap,
 } from "./CronComposerChains";
 import { IBaseSlot } from "./slots/BaseSlot";
-import DayOfWeekSlot, { DayOfWeek } from "./slots/DayOfWeekSlot";
+import DayOfWeekSlot from "./slots/DayOfWeekSlot";
 import DaySlot from "./slots/DaySlot";
 import HourSlot from "./slots/HourSlot";
 import MinuteSlot from "./slots/MinuteSlot";
-import MonthSlot, { MonthOfYear } from "./slots/MonthSlot";
+import MonthSlot from "./slots/MonthSlot";
 import SecondSlot from "./slots/SecondSlot";
-
-/**
- * Represents the type of slots available in a Cron expression.
- */
-export enum SlotType {
-  /**
-   * Seconds slot (0-59).
-   */
-  Second,
-  /**
-   * Minutes slot (0-59).
-   */
-  Minute,
-  /**
-   * Hours slot (0-23).
-   */
-  Hour,
-  /**
-   * Days slot (1-31).
-   */
-  Day,
-  /**
-   * Months slot (1-12 or Jan-Dec).
-   */
-  Month,
-  /**
-   * Day of the week slot (0-6 or Sun-Sat).
-   */
-  DayOfWeek,
-}
 
 type SlotValueType = {
   [SlotType.Second]: number;

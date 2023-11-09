@@ -1,4 +1,5 @@
-import { CronComposer, SlotType } from "./CronComposer";
+import { CronComposer } from "./CronComposer";
+import { SlotType } from "./CronComposer.types";
 
 describe("CronComposer", () => {
   let cronComposer: CronComposer;

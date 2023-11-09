@@ -1,7 +1,6 @@
+import { DayOfWeek } from "../CronComposer.types";
 import { ValueConverter } from "../ValueConverter";
 import BaseSlot, { IBaseSlot } from "./BaseSlot";
-
-export type DayOfWeek = "sun" | "mon" | "tue" | "wed" | "thu" | "fri" | "sat";
 
 const dayMapping: Record<DayOfWeek, number> = {
   sun: 0,

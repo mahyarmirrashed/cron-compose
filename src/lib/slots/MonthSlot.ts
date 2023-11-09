@@ -1,20 +1,7 @@
+import { MonthOfYear } from "../CronComposer.types";
 import { ValueConverter } from "../ValueConverter";
 import { IBaseSlot } from "./BaseSlot";
 import OffsetBaseSlot from "./OffsetBaseSlot";
-
-export type MonthOfYear =
-  | "jan"
-  | "feb"
-  | "mar"
-  | "apr"
-  | "may"
-  | "jun"
-  | "jul"
-  | "aug"
-  | "sep"
-  | "oct"
-  | "nov"
-  | "dec";
 
 const monthMapping: Record<MonthOfYear, number> = {
   jan: 1,

@@ -1,6 +1,5 @@
-import { CronComposer, SlotType } from "./CronComposer";
-import { DayOfWeek } from "./slots/DayOfWeekSlot";
-import { MonthOfYear } from "./slots/MonthSlot";
+import { CronComposer } from "./CronComposer";
+import { DayOfWeek, MonthOfYear, SlotType } from "./CronComposer.types";
 
 /**
  * Defines valid cron fields that can be manipulated in a cron expression.
