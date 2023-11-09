@@ -1,3 +1,12 @@
+import {
+  CronField,
+  ExceptChain,
+  FromChain,
+  ICronChain,
+  TimeMeridiem,
+  convertHourUsingMeridiem,
+  fieldMap,
+} from "./CronComposerChains";
 import { IBaseSlot } from "./slots/BaseSlot";
 import DayOfWeekSlot, { DayOfWeek } from "./slots/DayOfWeekSlot";
 import DaySlot from "./slots/DaySlot";
@@ -33,7 +42,7 @@ type SlotValueType = {
 
 /// Main class to compose and manipulate a Cron expression.
 /// All slots default to "*" which means that it fires for every value in that slot.
-export class CronComposer {
+export class CronComposer implements ICronChain {
   private slots: Map<SlotType, IBaseSlot<number | MonthOfYear | DayOfWeek>>;
 
   // Constructor to initialize slots for the Cron expression.
@@ -116,6 +125,36 @@ export class CronComposer {
   public clear<T extends SlotType>(slot: T) {
     this.slots.get(slot)!.clear();
     return this;
+  }
+
+  public in(...months: MonthOfYear[]) {
+    months.forEach((month) => this.addSingle(SlotType.Month, month));
+    return this;
+  }
+
+  public on(...daysOfWeek: DayOfWeek[]) {
+    daysOfWeek.forEach((dayOfWeek) =>
+      this.addSingle(SlotType.DayOfWeek, dayOfWeek),
+    );
+    return this;
+  }
+
+  public at(hour: number, meridiem?: TimeMeridiem) {
+    this.addSingle(SlotType.Hour, convertHourUsingMeridiem(hour, meridiem));
+    return this;
+  }
+
+  public every(step: number, field: CronField) {
+    this.addStep(fieldMap[field], step);
+    return this;
+  }
+
+  public from(hour: number, meridiem?: TimeMeridiem) {
+    return new FromChain(this, hour, meridiem);
+  }
+
+  public get except() {
+    return new ExceptChain(this);
   }
 
   // Converts the Cron expression into its string representation.
