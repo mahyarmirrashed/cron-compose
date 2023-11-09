@@ -129,4 +129,47 @@ export class CronComposer {
 
     return parts.join(" ");
   }
+
+  // Parse a cron string and update the slots accodingly.
+  parse(cronString: string) {
+    const parts = cronString.trim().split(/\s+/);
+    const validCronString = parts.length === 5 || parts.length === 6;
+
+    if (!validCronString) throw new Error("Invalid cron string format.");
+
+    if (parts.length === 6) {
+      this.enableSeconds();
+      this.parsePart(SlotType.Second, parts[0]);
+    } else {
+      this.disableSeconds();
+    }
+
+    this.parsePart(SlotType.Minute, parts[this.useSecond ? 1 : 0]);
+    this.parsePart(SlotType.Hour, parts[this.useSecond ? 2 : 1]);
+    this.parsePart(SlotType.Day, parts[this.useSecond ? 3 : 2]);
+    this.parsePart(SlotType.Month, parts[this.useSecond ? 4 : 3]);
+    this.parsePart(SlotType.DayOfWeek, parts[this.useSecond ? 5 : 4]);
+
+    return this;
+  }
+
+  // Helper method to parse each part of the cron string.
+  private parsePart(slotType: SlotType, part: string) {
+    const slot = this.slots.get(slotType)!;
+
+    if (part.match(/^\*$/)) {
+      // do nothing
+    } else if (part.match(/^\*\/[1-9]\d*$/)) {
+      const step = parseInt(part.split("/")[1]);
+      slot.addStep(step);
+    } else if (part.match(/^[1-9]\d*\-[1-9]\d*$/)) {
+      const [start, end] = part.split("-").map(Number);
+      slot.addRange(start, end);
+    } else if (part.match(/^[1-9]\d*$/)) {
+      const value = parseInt(part);
+      slot.addSingle(value);
+    } else {
+      throw new Error("Unknown part sequence encountered.");
+    }
+  }
 }
