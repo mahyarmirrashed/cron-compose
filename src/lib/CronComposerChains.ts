@@ -2,6 +2,7 @@ import { CronComposer, SlotType } from "./CronComposer";
 import { DayOfWeek } from "./slots/DayOfWeekSlot";
 import { MonthOfYear } from "./slots/MonthSlot";
 
+// Defines a valid cron fields that can be manipulated in a cron expression.
 export type CronField =
   | "seconds"
   | "minutes"
@@ -9,6 +10,7 @@ export type CronField =
   | "days"
   | "months"
   | "weekdays";
+// Defines valid time meridiems for 12-hour clock formats.
 export type TimeMeridiem = "am" | "pm";
 
 export const fieldMap: { [key in CronField]: SlotType } = {
@@ -42,6 +44,7 @@ class Chain {
 }
 
 export class ExceptChain extends Chain implements ICronChain {
+  // Removes specific months to the cron expression.
   public in(...months: MonthOfYear[]) {
     months.forEach((month) =>
       this.composer.removeSingle(SlotType.Month, month),
@@ -49,6 +52,7 @@ export class ExceptChain extends Chain implements ICronChain {
     return this.composer;
   }
 
+  // Removes specific days of the week to the cron expression.
   public on(...daysOfWeek: DayOfWeek[]) {
     daysOfWeek.forEach((dayOfWeek) =>
       this.composer.removeSingle(SlotType.DayOfWeek, dayOfWeek),
@@ -56,6 +60,7 @@ export class ExceptChain extends Chain implements ICronChain {
     return this.composer;
   }
 
+  // Removes a specific hour for the cron expression.
   public at(hour: number, meridiem?: TimeMeridiem) {
     this.composer.removeSingle(
       SlotType.Hour,
@@ -64,11 +69,13 @@ export class ExceptChain extends Chain implements ICronChain {
     return this.composer;
   }
 
+  // Removes a step value for a specific cron slot.
   public every(step: number, field: CronField) {
     this.composer.removeStep(fieldMap[field], step);
     return this.composer;
   }
 
+  // Initializes a range setting for hours, to be used with the `to` method.
   public from(hour: number, meridiem?: TimeMeridiem) {
     return new FromChain(this.composer, hour, meridiem, true);
   }
@@ -84,6 +91,7 @@ export class FromChain extends Chain {
     super(composer);
   }
 
+  // Completes the definition of a range by specifying the end hour.
   to(toHour: number, toMeridiem?: TimeMeridiem) {
     toHour = convertHourUsingMeridiem(toHour, toMeridiem);
     this.fromHour = convertHourUsingMeridiem(this.fromHour, this.fromMeridiem);

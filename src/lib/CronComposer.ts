@@ -127,11 +127,13 @@ export class CronComposer implements ICronChain {
     return this;
   }
 
+  // Adds specific months to the cron expression.
   public in(...months: MonthOfYear[]) {
     months.forEach((month) => this.addSingle(SlotType.Month, month));
     return this;
   }
 
+  // Adds specific days of the week to the cron expression.
   public on(...daysOfWeek: DayOfWeek[]) {
     daysOfWeek.forEach((dayOfWeek) =>
       this.addSingle(SlotType.DayOfWeek, dayOfWeek),
@@ -139,20 +141,24 @@ export class CronComposer implements ICronChain {
     return this;
   }
 
+  // Adds a specific hour for the cron expression.
   public at(hour: number, meridiem?: TimeMeridiem) {
     this.addSingle(SlotType.Hour, convertHourUsingMeridiem(hour, meridiem));
     return this;
   }
 
+  // Adds a step value for a specific cron slot.
   public every(step: number, field: CronField) {
     this.addStep(fieldMap[field], step);
     return this;
   }
 
+  // Initializes a range setting for hours, to be used with the `to` method.
   public from(hour: number, meridiem?: TimeMeridiem) {
     return new FromChain(this, hour, meridiem);
   }
 
+  // Provides access to define exclusion rules.
   public get except() {
     return new ExceptChain(this);
   }
