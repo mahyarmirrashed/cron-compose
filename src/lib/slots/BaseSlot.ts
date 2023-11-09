@@ -83,9 +83,14 @@ export abstract class BaseSlot implements IBaseSlot {
     if (this.maximumValue !== other.maximumValue)
       throw new Error("Cannot intersect slots with different maximum values.");
 
-    return this.selectedValues.map(
-      (value, index) => value && other.selectedValues[index],
-    );
+    if (this.isFresh && other.isFresh)
+      return new Array(this.maximumValue).fill(true);
+    else if (this.isFresh) return [...other.selectedValues];
+    else if (other.isFresh) return [...this.selectedValues];
+    else
+      return this.selectedValues.map(
+        (value, index) => value && other.selectedValues[index],
+      );
   }
 
   toString() {
