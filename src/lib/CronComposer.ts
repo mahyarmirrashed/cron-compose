@@ -225,6 +225,28 @@ export class CronComposer implements ICronChain {
     return new ExceptChain(this);
   }
 
+  public intersect(other: CronComposer): CronComposer {
+    if (this.useSecond !== other.useSecond)
+      throw new Error(
+        "Cannot intersect composers with different second settings.",
+      );
+
+    const result = new CronComposer(this.useSecond);
+
+    this.slots.forEach((slot, slotType) => {
+      const otherSlot = other.slots.get(slotType)!;
+      const resSlot = result.slots.get(slotType)!;
+
+      const intersection = slot.intersect(otherSlot);
+
+      intersection.forEach((isSelected, index) => {
+        if (isSelected) resSlot.addSingle(index);
+      });
+    });
+
+    return result;
+  }
+
   /**
    * Converts the Cron expression into its string representation.
    * @returns The string representation of the Cron expression.

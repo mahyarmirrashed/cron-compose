@@ -6,6 +6,7 @@ export interface IBaseSlot<T = number> {
   removeRange(start: T, end: T): this;
   removeStep(step: T, start?: T): this;
   clear(): this;
+  intersect(other: this): boolean[];
   toString(): string;
 }
 
@@ -76,6 +77,15 @@ export abstract class BaseSlot implements IBaseSlot {
     this.isFresh = true;
     this.selectedValues.fill(false);
     return this;
+  }
+
+  intersect(other: BaseSlot) {
+    if (this.maximumValue !== other.maximumValue)
+      throw new Error("Cannot intersect slots with different maximum values.");
+
+    return this.selectedValues.map(
+      (value, index) => value && other.selectedValues[index],
+    );
   }
 
   toString() {
