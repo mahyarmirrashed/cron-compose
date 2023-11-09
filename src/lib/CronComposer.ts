@@ -225,7 +225,7 @@ export class CronComposer implements ICronChain {
     return new ExceptChain(this);
   }
 
-  public intersect(other: CronComposer): CronComposer {
+  public intersect(other: CronComposer) {
     if (this.useSecond !== other.useSecond)
       throw new Error(
         "Cannot intersect composers with different second settings.",
