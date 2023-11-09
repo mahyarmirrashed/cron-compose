@@ -49,25 +49,25 @@ export class CronComposer {
   }
 
   // Enables the seconds field in the Cron expression when being printed.
-  enableSeconds() {
+  public enableSeconds() {
     this.useSecond = true;
     return this;
   }
 
   // Disables the seconds field in the Cron expression when being printed.
-  disableSeconds() {
+  public disableSeconds() {
     this.useSecond = false;
     return this;
   }
 
   // Adds a single value to a specific slot type.
-  addSingle<T extends SlotType>(slot: T, value: SlotValueType[T]) {
+  public addSingle<T extends SlotType>(slot: T, value: SlotValueType[T]) {
     this.slots.get(slot)!.addSingle(value);
     return this;
   }
 
   // Adds a range of values to a specific slot type.
-  addRange<T extends SlotType>(
+  public addRange<T extends SlotType>(
     slot: T,
     start: SlotValueType[T],
     end: SlotValueType[T],
@@ -77,19 +77,23 @@ export class CronComposer {
   }
 
   // Adds a step value to a specific slot type, optionally starting from a given value.
-  addStep<T extends SlotType>(slot: T, step: number, start?: SlotValueType[T]) {
+  public addStep<T extends SlotType>(
+    slot: T,
+    step: number,
+    start?: SlotValueType[T],
+  ) {
     this.slots.get(slot)!.addStep(step, start);
     return this;
   }
 
   // Removes a single value to a specific slot type.
-  removeSingle<T extends SlotType>(slot: T, value: SlotValueType[T]) {
+  public removeSingle<T extends SlotType>(slot: T, value: SlotValueType[T]) {
     this.slots.get(slot)!.removeSingle(value);
     return this;
   }
 
   // Removes a range of values to a specific slot type.
-  removeRange<T extends SlotType>(
+  public removeRange<T extends SlotType>(
     slot: T,
     start: SlotValueType[T],
     end: SlotValueType[T],
@@ -99,7 +103,7 @@ export class CronComposer {
   }
 
   // Removes a range of values to a specific slot type.
-  removeStep<T extends SlotType>(
+  public removeStep<T extends SlotType>(
     slot: T,
     step: number,
     start?: SlotValueType[T],
@@ -109,13 +113,13 @@ export class CronComposer {
   }
 
   // Clears all values from a specific slot type.
-  clear<T extends SlotType>(slot: T) {
+  public clear<T extends SlotType>(slot: T) {
     this.slots.get(slot)!.clear();
     return this;
   }
 
   // Converts the Cron expression into its string representation.
-  toString() {
+  public toString() {
     const parts = [
       this.slots.get(SlotType.Minute)!.toString(),
       this.slots.get(SlotType.Hour)!.toString(),
@@ -131,7 +135,7 @@ export class CronComposer {
   }
 
   // Parse a cron string and update the slots accodingly.
-  parse(cronString: string) {
+  public parse(cronString: string) {
     const parts = cronString.trim().split(/\s+/);
     const validCronString = parts.length === 5 || parts.length === 6;
 
