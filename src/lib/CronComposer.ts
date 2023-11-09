@@ -156,20 +156,29 @@ export class CronComposer {
   // Helper method to parse each part of the cron string.
   private parsePart(slotType: SlotType, part: string) {
     const slot = this.slots.get(slotType)!;
+    const num = "(0|([1-9]\\d*))";
 
-    if (part.match(/^\*$/)) {
-      // do nothing
-    } else if (part.match(/^\*\/[1-9]\d*$/)) {
-      const step = parseInt(part.split("/")[1]);
-      slot.addStep(step);
-    } else if (part.match(/^[1-9]\d*\-[1-9]\d*$/)) {
-      const [start, end] = part.split("-").map(Number);
-      slot.addRange(start, end);
-    } else if (part.match(/^[1-9]\d*$/)) {
-      const value = parseInt(part);
-      slot.addSingle(value);
-    } else {
-      throw new Error("Unknown part sequence encountered.");
-    }
+    // Using RegExp constructor to use the `num` variable in the pattern
+    const matchAll = new RegExp(`^\\*$`);
+    const matchSingle = new RegExp(`^${num}$`);
+    const matchRange = new RegExp(`^${num}\\-${num}$`);
+    const matchStep = new RegExp(`^\\*/${num}$`);
+
+    part.split(/,/).forEach((segment) => {
+      if (matchAll.test(segment)) {
+        slot.clear();
+      } else if (matchSingle.test(segment)) {
+        const value = parseInt(segment);
+        slot.addSingle(value);
+      } else if (matchRange.test(segment)) {
+        const [start, end] = segment.split("-").map(Number);
+        slot.addRange(start, end);
+      } else if (matchStep.test(segment)) {
+        const step = parseInt(segment.split("/")[1]);
+        slot.addStep(step);
+      } else {
+        throw new Error(`Unknown segment sequence encountered: ${segment}`);
+      }
+    });
   }
 }
