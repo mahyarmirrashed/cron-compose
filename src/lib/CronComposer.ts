@@ -14,6 +14,7 @@ import DaySlot from "./slots/DaySlot";
 import HourSlot from "./slots/HourSlot";
 import MinuteSlot from "./slots/MinuteSlot";
 import MonthSlot from "./slots/MonthSlot";
+import OffsetBaseSlot from "./slots/OffsetBaseSlot";
 import SecondSlot from "./slots/SecondSlot";
 
 type SlotValueType = {
@@ -239,7 +240,8 @@ export class CronComposer implements ICronChain {
       const intersection = slot.intersect(otherSlot);
 
       intersection.forEach((isSelected, index) => {
-        if (isSelected) resSlot.addSingle(index);
+        if (slot instanceof OffsetBaseSlot && index === 0) return;
+        else if (isSelected) resultSlot.addSingle(index);
       });
     });
 
