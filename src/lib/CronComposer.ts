@@ -15,19 +15,33 @@ import MinuteSlot from "./slots/MinuteSlot";
 import MonthSlot, { MonthOfYear } from "./slots/MonthSlot";
 import SecondSlot from "./slots/SecondSlot";
 
-/// Different types of slots available in a Cron expression.
+/**
+ * Represents the type of slots available in a Cron expression.
+ */
 export enum SlotType {
-  // Seconds slot (0-59).
+  /**
+   * Seconds slot (0-59).
+   */
   Second,
-  // Minutes slot (0-59).
+  /**
+   * Minutes slot (0-59).
+   */
   Minute,
-  // Hours slot (0-23).
+  /**
+   * Hours slot (0-23).
+   */
   Hour,
-  // Days slot (1-31).
+  /**
+   * Days slot (1-31).
+   */
   Day,
-  // Months slot (1-12 or Jan-Dec).
+  /**
+   * Months slot (1-12 or Jan-Dec).
+   */
   Month,
-  // Day of the week slot (0-6 or Sun-Sat).
+  /**
+   * Day of the week slot (0-6 or Sun-Sat).
+   */
   DayOfWeek,
 }
 
@@ -40,13 +54,18 @@ type SlotValueType = {
   [SlotType.DayOfWeek]: number | DayOfWeek;
 };
 
-/// Main class to compose and manipulate a Cron expression.
-/// All slots default to "*" which means that it fires for every value in that slot.
+/**
+ * Main class to compose and manipulate a Cron expression. All slots default to
+ * "*", which signifies that it fires for every value in that slot.
+ */
 export class CronComposer implements ICronChain {
   private slots: Map<SlotType, IBaseSlot<number | MonthOfYear | DayOfWeek>>;
 
-  // Constructor to initialize slots for the Cron expression.
-  // Optionally declare whether to display seconds slot when printing here.
+  /**
+   * Constructs an instance of the CronComposer.
+   * @param useSecond Optional. Indicates whether to include the seconds field
+   * in the output.
+   */
   constructor(private useSecond = false) {
     this.slots = new Map();
     this.slots.set(SlotType.Second, new SecondSlot());
@@ -57,25 +76,42 @@ export class CronComposer implements ICronChain {
     this.slots.set(SlotType.DayOfWeek, new DayOfWeekSlot());
   }
 
-  // Enables the seconds field in the Cron expression when being printed.
+  /**
+   * Enables the seconds field in the Cron expression.
+   * @returns The current instance for chaining.
+   */
   public enableSeconds() {
     this.useSecond = true;
     return this;
   }
 
-  // Disables the seconds field in the Cron expression when being printed.
+  /**
+   * Disables the seconds field in the Cron expression.
+   * @returns The current instance for chaining.
+   */
   public disableSeconds() {
     this.useSecond = false;
     return this;
   }
 
-  // Adds a single value to a specific slot type.
+  /**
+   * Adds a single value to a specific slot type.
+   * @param slot - The slot type to add the value to.
+   * @param value - The value to add.
+   * @returns The current instance for chaining.
+   */
   public addSingle<T extends SlotType>(slot: T, value: SlotValueType[T]) {
     this.slots.get(slot)!.addSingle(value);
     return this;
   }
 
-  // Adds a range of values to a specific slot type.
+  /**
+   * Adds a range of values to a specific slot type.
+   * @param slot - The slot type to add the range to.
+   * @param start - The start of the range.
+   * @param end - The end of the range.
+   * @returns The current instance for chaining.
+   */
   public addRange<T extends SlotType>(
     slot: T,
     start: SlotValueType[T],
@@ -85,7 +121,13 @@ export class CronComposer implements ICronChain {
     return this;
   }
 
-  // Adds a step value to a specific slot type, optionally starting from a given value.
+  /**
+   * Adds a step value to a specific slot type.
+   * @param slot - The slot type to add the step to.
+   * @param step - The step value.
+   * @param start - Optional. The value to start the step from.
+   * @returns The current instance for chaining.
+   */
   public addStep<T extends SlotType>(
     slot: T,
     step: number,
@@ -95,13 +137,24 @@ export class CronComposer implements ICronChain {
     return this;
   }
 
-  // Removes a single value to a specific slot type.
+  /**
+   * Removes a single value from a specific slot type.
+   * @param slot - The slot type to remove the value from.
+   * @param value - The value to remove.
+   * @returns The current instance for chaining.
+   */
   public removeSingle<T extends SlotType>(slot: T, value: SlotValueType[T]) {
     this.slots.get(slot)!.removeSingle(value);
     return this;
   }
 
-  // Removes a range of values to a specific slot type.
+  /**
+   * Removes a range of values from a specific slot type.
+   * @param slot - The slot type to remove the range from.
+   * @param start - The start of the range.
+   * @param end - The end of the range.
+   * @returns The current instance for chaining.
+   */
   public removeRange<T extends SlotType>(
     slot: T,
     start: SlotValueType[T],
@@ -111,7 +164,13 @@ export class CronComposer implements ICronChain {
     return this;
   }
 
-  // Removes a range of values to a specific slot type.
+  /**
+   * Removes a step of values from a specific slot type.
+   * @param slot - The slot type to remove the step from.
+   * @param step - The step value.
+   * @param start - Optional. The value to start the step from.
+   * @returns The current instance for chaining.
+   */
   public removeStep<T extends SlotType>(
     slot: T,
     step: number,
@@ -121,19 +180,31 @@ export class CronComposer implements ICronChain {
     return this;
   }
 
-  // Clears all values from a specific slot type.
+  /**
+   * Clears all values from a specific slot type.
+   * @param slot - The slot type to clear.
+   * @returns The current instance for chaining.
+   */
   public clear<T extends SlotType>(slot: T) {
     this.slots.get(slot)!.clear();
     return this;
   }
 
-  // Adds specific months to the cron expression.
+  /**
+   * Adds specific months to the Cron expression.
+   * @param months - The months to add to the Cron expression.
+   * @returns The current instance for chaining.
+   */
   public in(...months: MonthOfYear[]) {
     months.forEach((month) => this.addSingle(SlotType.Month, month));
     return this;
   }
 
-  // Adds specific days of the week to the cron expression.
+  /**
+   * Adds specific days of the week to the Cron expression.
+   * @param daysOfWeek - The days of the week to add to the Cron expression.
+   * @returns The current instance for chaining.
+   */
   public on(...daysOfWeek: DayOfWeek[]) {
     daysOfWeek.forEach((dayOfWeek) =>
       this.addSingle(SlotType.DayOfWeek, dayOfWeek),
@@ -141,29 +212,52 @@ export class CronComposer implements ICronChain {
     return this;
   }
 
-  // Adds a specific hour for the cron expression.
+  /**
+   * Adds a specific hour for the Cron expression.
+   * @param hour - The hour to add.
+   * @param meridiem - Optional. The time meridiem to convert the hour if
+   * necessary.
+   * @returns The current instance for chaining.
+   */
   public at(hour: number, meridiem?: TimeMeridiem) {
     this.addSingle(SlotType.Hour, convertHourUsingMeridiem(hour, meridiem));
     return this;
   }
 
-  // Adds a step value for a specific cron slot.
+  /**
+   * Adds a step value for a specific Cron slot.
+   * @param step - The step value.
+   * @param field - The field to apply the step to.
+   * @returns The current instance for chaining.
+   */
   public every(step: number, field: CronField) {
     this.addStep(fieldMap[field], step);
     return this;
   }
 
-  // Initializes a range setting for hours, to be used with the `to` method.
+  /**
+   * Initializes a range setting for hours, to be used with the `to` method.
+   * @param hour - The hour to start the range from.
+   * @param meridiem - Optional. The time meridiem to convert the hour if
+   * necessary.
+   * @returns An instance of `FromChain` to define the end of the range.
+   */
   public from(hour: number, meridiem?: TimeMeridiem) {
     return new FromChain(this, hour, meridiem);
   }
 
-  // Provides access to define exclusion rules.
+  /**
+   * Provides access to define exclusion rules.
+   * @returns An instance of `ExceptChain` to define exclusion rules.
+   */
   public get except() {
     return new ExceptChain(this);
   }
 
-  // Converts the Cron expression into its string representation.
+  /**
+   * Converts the Cron expression into its string representation.
+   * @returns The string representation of the Cron expression.
+   */
   public toString() {
     const parts = [
       this.slots.get(SlotType.Minute)!.toString(),
@@ -179,7 +273,12 @@ export class CronComposer implements ICronChain {
     return parts.join(" ");
   }
 
-  // Parse a cron string and update the slots accodingly.
+  /**
+   * Parses a cron string and updates the slots accordingly.
+   * @param cronString - The cron string to parse.
+   * @returns The current instance for chaining.
+   * @throws Error if the cron string format is invalid.
+   */
   public parse(cronString: string) {
     const parts = cronString.trim().split(/\s+/);
     const validCronString = parts.length === 5 || parts.length === 6;
@@ -202,7 +301,12 @@ export class CronComposer implements ICronChain {
     return this;
   }
 
-  // Helper method to parse each part of the cron string.
+  /**
+   * Helper method to parse each part of the cron string and update slots.
+   * @param slotType = The type of the slot to update.
+   * @param part - The string part of the cron expression for the slot.
+   * @throws Error if an unknown segment sequence is encountered.
+   */
   private parsePart(slotType: SlotType, part: string) {
     const slot = this.slots.get(slotType)!;
     const num = "(0|([1-9]\\d*))";
