@@ -9,6 +9,7 @@ Cron Compose is a TypeScript library designed to make the creation of cron expre
 ## Features
 
 - **Ease of Use**: Construct cron expressions through easy-to-understand method calls.
+- **Manipulate Existing Strings**: Load existing cron expressions and manipulate them.
 - **Flexibility**: Add or remove specific time units or ranges effortlessly.
 - **Type Safety**: Leveage TypeScript's type-checking to avoid invalid inputs.
 - **Clean Output**: Automatically removes unnecessary elements and outputs clean cron strings.
@@ -34,6 +35,18 @@ const cronComposer = new CronComposer()
   .addRange(SlotType.Day, 6, 13);
 
 console.log(cronComposer.toString()); // "1 * 1-13 * *"
+```
+
+You can also parse existing Cron strings with it:
+
+```ts
+import { CronComposer } from "cron-compose";
+
+const cronComposer = new CronComposer().parse(
+  "3-4,5,6-8 */30,*/20 5-8,10-12 1,1 5,3,5 *",
+);
+
+console.log(cronComposer.toString()); // "3-8 0,20,30,40 5-8,10-12 1 3,5 *"
 ```
 
 ## Testing
