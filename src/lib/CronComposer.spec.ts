@@ -169,6 +169,18 @@ describe("CronComposer", () => {
     expect(cronComposer.toString()).toBe("* 0-11,13-23 * * *");
   });
 
+  it("should intersect two cron string correctly", () => {
+    const first = new CronComposer().parse("0 6 * * *");
+    const second = new CronComposer().parse("* * 12-14 * *");
+    expect(first.intersect(second).toString()).toBe("0 6 12-14 * *");
+  });
+
+  it("should throw an error for different size cron strings", () => {
+    expect(() =>
+      cronComposer.enableSeconds().intersect(new CronComposer()),
+    ).toThrow("Cannot intersect composers with different second settings.");
+  });
+
   it("should parse a simple cron string correctly", () => {
     cronComposer.parse("* * * * *");
     expect(cronComposer.toString()).toBe("* * * * *");
