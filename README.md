@@ -49,6 +49,20 @@ const cronComposer = new CronComposer().parse(
 console.log(cronComposer.toString()); // "3-8 0,20,30,40 5-8,10-12 1 3,5 *"
 ```
 
+Finally, you can use the more human-readable API to create your Cron strings:
+
+```ts
+import { CronComposer } from "cron-compose";
+
+console.log(
+  new CronComposer()
+    .parse("* * * * *")
+    .every(1, "hours")
+    .except.at(1, "pm")
+    .toString(),
+); // "* 0-12,14-23 * * *"
+```
+
 ## Testing
 
 To run tests, use the following command:
