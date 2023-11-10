@@ -1,5 +1,12 @@
 
 
+## [1.2.1](https://github.com/mahyarmirrashed/cron-compose/compare/1.2.0...1.2.1) (2023-11-10)
+
+
+### Bug Fixes
+
+* remove version from being tag ([51e20b9](https://github.com/mahyarmirrashed/cron-compose/commit/51e20b9f0f84af803b8fa911bbee4ef7d4b1cd4f))
+
 ## [1.2.0](https://github.com/mahyarmirrashed/cron-compose/compare/1.1.0...1.2.0) (2023-11-09)
 
 
